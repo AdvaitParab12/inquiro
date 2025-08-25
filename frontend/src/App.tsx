@@ -7,6 +7,8 @@ import SignUp from "./pages/SignUp";
 import AboutPage from "./pages/About";
 import ContactPage from "./pages/Contact";
 import BrowsePaper from "./pages/BrowsePaper";
+import SubmitPaper from "./pages/SubmitPaper";
+
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/browse" element={<BrowsePaper />} />
+        <Route path="/submit" element={<SubmitPaper />} />
+
       </Routes>
     </>
   );
