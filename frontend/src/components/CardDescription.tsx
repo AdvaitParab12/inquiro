@@ -1,4 +1,5 @@
 import { Heart, Share2, User, Calendar, Eye } from "lucide-react";
+import { Link } from "react-router-dom";
 
 function Cards() {
   return (
@@ -13,10 +14,13 @@ function Cards() {
         </div>
       </section>
       <section className="mt-4">
-        <div className="name text-xl font-semibold text-gray-600">
-          Quantum Computing Applications in Machine Learning: A Comprehensive
-          Survey
-        </div>
+        <Link to={"/paper"}>
+          <div className="name cursor-pointer text-xl font-semibold text-gray-600 hover:text-emerald-500">
+            Quantum Computing Applications in Machine Learning: A Comprehensive
+            Survey
+          </div>
+        </Link>
+
         <div className="author flex items-center gap-2 font-extralight text-gray-600">
           <User size={16} />
           Dr. Sarah Chen, Prof. Michael Rodriguez, Dr. Aisha Patel
@@ -38,13 +42,13 @@ function Cards() {
           </span>
         </div>
       </section>
-      <section className="flex gap-4 mt-3   ">
+      <section className="mt-3 flex gap-4">
         <div className="date flex gap-1">
-          <Calendar size={16}/>
+          <Calendar size={16} />
           <p className="text-xs">1/15/2024</p>
         </div>
         <div className="views flex gap-1">
-          <Eye size={16}/>
+          <Eye size={16} />
           <p className="text-xs">1,567</p>
         </div>
       </section>

@@ -1,3 +1,5 @@
+//TODO:About page to be desingned
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { BookOpen, Users, Target, Award } from "lucide-react";
