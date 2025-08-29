@@ -7,8 +7,8 @@ import {
 import authMiddleware from "../middlewares/authMiddleware.js";
 const router = express.Router();
 
-router.post("/submit", authMiddleware, submitPaper); // protected
-router.get("/", getPapers); // public
-router.get("/:id", getPaperById); // public
+router.post("/submit", authMiddleware, submitPaper); 
+router.get("/", getPapers);
+router.get("/:id", getPaperById);
 
 export default router;

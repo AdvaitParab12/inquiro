@@ -11,7 +11,7 @@ router.post("/signup", signup);
 router.post("/login", loginUser);
 router.post("/submit", authMiddleware, submitPaper);
 
-// get current user
+
 router.get("/me", authMiddleware, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select("-password");

@@ -1,18 +1,15 @@
 import Paper from "../models/Paper.js";
 
-// @desc Submit a new research paper
-// @route POST /api/papers/submit
-// @access Private
 export const submitPaper = async (req, res) => {
   try {
     const { title, abstract, content, category, authors, keywords } = req.body;
 
-    // Check required fields
+ 
     if (!title || !abstract || !content) {
       return res.status(400).json({ message: "All fields are required" });
     }
 
-    // Save paper with user reference
+  
     const paper = await Paper.create({
       title,
       abstract,
@@ -20,7 +17,7 @@ export const submitPaper = async (req, res) => {
       category,
       authors: Array.isArray(authors) ? authors : [],
       keywords: Array.isArray(keywords) ? keywords : [],
-      user: req.user.id, // comes from authMiddleware
+      user: req.user.id, 
     });
 
     res.status(201).json({
@@ -33,9 +30,6 @@ export const submitPaper = async (req, res) => {
   }
 };
 
-// @desc Get all papers
-// @route GET /api/papers
-// @access Public
 export const getPapers = async (req, res) => {
   try {
     const papers = await Paper.find().populate("user", "name email");
@@ -45,9 +39,7 @@ export const getPapers = async (req, res) => {
   }
 };
 
-// @desc Get single paper by ID
-// @route GET /api/papers/:id
-// @access Public
+
 export const getPaperById = async (req, res) => {
   try {
     const paper = await Paper.findByIdAndUpdate(
