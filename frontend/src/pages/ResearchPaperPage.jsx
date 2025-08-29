@@ -19,7 +19,7 @@ function ResearchPaperPage() {
   useEffect(() => {
     const fetchPaper = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/papers/${id}`);
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/papers/${id}`);
         if (!res.ok) throw new Error("Failed to load paper");
         const data = await res.json();
         setPaper(data);

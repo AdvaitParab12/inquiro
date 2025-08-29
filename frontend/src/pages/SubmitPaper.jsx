@@ -267,7 +267,7 @@ function SubmitPaper() {
                 keywords,
               };
               await axios.post(
-                "http://localhost:5000/api/papers/submit",
+                `${import.meta.env.VITE_API_URL}/api/papers/submit`,
                 payload,
                 {
                   headers: { Authorization: `Bearer ${token}` },
