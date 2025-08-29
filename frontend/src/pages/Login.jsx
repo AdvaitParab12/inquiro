@@ -9,62 +9,48 @@ function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
-  // Handle input changes
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
-    // Clear error when user starts typing
     if (error) setError("");
   };
 
-  // Handle login
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
 
-    // Basic validation
     if (!formData.email || !formData.password) {
       setError("Please fill in all fields");
       return;
     }
 
-    // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email)) {
       setError("Please enter a valid email address");
       return;
     }
 
-    // Password validation
     if (formData.password.length < 1) {
       setError("Password is required");
       return;
     }
 
     try {
-      // 1. Login request → returns token
       const res = await axios.post(
         "http://localhost:5000/api/auth/login",
         formData,
       );
       const token = res.data.token;
-
-      // 2. Save token
       localStorage.setItem("token", token);
-
-      // 3. Save user info
       localStorage.setItem("user", JSON.stringify(res.data.user));
       window.dispatchEvent(new Event("storageUpdated"));
-
-      // 4. Redirect to home/dashboard
       navigate("/");
-    } catch (err: any) {
+    } catch (err) {
       setError(err.response?.data?.message || "Login failed");
     }
   };
 
   return (
     <div className="flex h-full flex-col items-center justify-start gap-4 pt-5">
-      {/* Header */}
       <section>
         <div className="flex items-center justify-center">
           <img src="/book-open.png" alt="logo" height={40} width={40} />
@@ -77,17 +63,13 @@ function Login() {
         </div>
       </section>
 
-      {/* Form */}
       <section className="flex flex-col gap-4 rounded-xl border border-gray-300 p-6 shadow-2xl">
         <div className="flex flex-col items-center justify-center">
           <p className="text-2xl font-semibold text-gray-700">Welcome Back</p>
-          <p className="text-gray-500">
-            Access your account and continue exploring
-          </p>
+          <p className="text-gray-500">Access your account and continue exploring</p>
         </div>
 
         <form className="flex w-full flex-col gap-2" onSubmit={handleSubmit}>
-          {/* Email */}
           <label htmlFor="email" className="text-lg font-medium text-gray-700">
             Email
           </label>
@@ -98,8 +80,7 @@ function Login() {
             onChange={handleChange}
             placeholder="Enter your email"
             className={`border-gray-200 focus:border-emerald-500 focus:ring-emerald-500 ${
-              formData.email &&
-              !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)
+              formData.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)
                 ? "border-red-500 focus:border-red-500 focus:ring-red-500"
                 : ""
             }`}
@@ -107,11 +88,7 @@ function Login() {
             autoComplete="email"
           />
 
-          {/* Password */}
-          <label
-            htmlFor="password"
-            className="text-lg font-medium text-gray-700"
-          >
+          <label htmlFor="password" className="text-lg font-medium text-gray-700">
             Password
           </label>
           <div className="relative">
@@ -134,7 +111,6 @@ function Login() {
             </button>
           </div>
 
-          {/* Password strength indicator */}
           {formData.password && (
             <div className="mt-1">
               <div className="flex items-center gap-2 text-sm text-gray-600">
@@ -166,10 +142,8 @@ function Login() {
             </div>
           )}
 
-          {/* Error */}
           {error && <p className="text-sm text-red-500">{error}</p>}
 
-          {/* Button */}
           <button
             type="submit"
             disabled={!formData.email || !formData.password}
@@ -179,7 +153,6 @@ function Login() {
           </button>
         </form>
 
-        {/* Footer */}
         <div className="flex justify-center gap-1">
           <p className="text-gray-600">Don't have an account?</p>
           <Link to={"/signup"}>
@@ -192,3 +165,5 @@ function Login() {
 }
 
 export default Login;
+
+

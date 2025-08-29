@@ -1,4 +1,3 @@
-// import { Link } from "react-router-dom";
 import { Search, Upload } from "lucide-react";
 const Homepage = () => {
   return (
@@ -21,10 +20,7 @@ const Homepage = () => {
               Submit Your Paper
             </button>
             <button className="group flex w-48 cursor-pointer items-center justify-center gap-2 rounded-md border border-gray-300 p-2 font-semibold hover:bg-emerald-400 hover:text-white">
-              <Search
-                size={18}
-                className="cursor-pointer text-gray-600 group-hover:text-white"
-              />
+              <Search size={18} className="cursor-pointer text-gray-600 group-hover:text-white" />
               Browse Papers
             </button>
           </div>
@@ -35,3 +31,5 @@ const Homepage = () => {
 };
 
 export default Homepage;
+
+

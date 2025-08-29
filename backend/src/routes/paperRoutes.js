@@ -1,10 +1,14 @@
 import express from "express";
+import {
+  submitPaper,
+  getPapers,
+  getPaperById,
+} from "../controllers/paperController.js";
+import authMiddleware from "../middlewares/authMiddleware.js";
 const router = express.Router();
 
-// Example route
-router.get("/", (req, res) => {
-  res.send("All papers route working ✅");
-});
+router.post("/submit", authMiddleware, submitPaper); // protected
+router.get("/", getPapers); // public
+router.get("/:id", getPaperById); // public
 
-// ✅ Export default
 export default router;

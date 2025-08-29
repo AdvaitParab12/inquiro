@@ -1,48 +1,29 @@
-import { useState, type ChangeEvent, type FormEvent } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import axios from "axios";
 
-// Define type for form data
-interface FormData {
-  name: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-}
-
-// Password validation interface
-interface PasswordValidation {
-  hasMinLength: boolean;
-  hasUpperCase: boolean;
-  hasLowerCase: boolean;
-  hasNumber: boolean;
-  hasSpecialChar: boolean;
-}
-
 function SignUp() {
-  const [formData, setFormData] = useState<FormData>({
+  const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
     confirmPassword: "",
   });
 
-  const [passwordError, setPasswordError] = useState<string>("");
-  const [apiError, setApiError] = useState<string>("");
-  const [passwordValidation, setPasswordValidation] =
-    useState<PasswordValidation>({
-      hasMinLength: false,
-      hasUpperCase: false,
-      hasLowerCase: false,
-      hasNumber: false,
-      hasSpecialChar: false,
-    });
+  const [passwordError, setPasswordError] = useState("");
+  const [apiError, setApiError] = useState("");
+  const [passwordValidation, setPasswordValidation] = useState({
+    hasMinLength: false,
+    hasUpperCase: false,
+    hasLowerCase: false,
+    hasNumber: false,
+    hasSpecialChar: false,
+  });
 
   const navigate = useNavigate();
 
-  // Password validation function
-  const validatePassword = (password: string): PasswordValidation => {
+  const validatePassword = (password) => {
     return {
       hasMinLength: password.length >= 8,
       hasUpperCase: /[A-Z]/.test(password),
@@ -52,13 +33,11 @@ function SignUp() {
     };
   };
 
-  // Check if password meets all requirements
-  const isPasswordValid = (validation: PasswordValidation): boolean => {
+  const isPasswordValid = (validation) => {
     return Object.values(validation).every(Boolean);
   };
 
-  // Types for event handlers
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
 
     setFormData({
@@ -66,16 +45,14 @@ function SignUp() {
       [name]: value,
     });
 
-    // Update password validation when password field changes
     if (name === "password") {
       setPasswordValidation(validatePassword(value));
     }
   };
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Check if password meets all requirements
     if (!isPasswordValid(passwordValidation)) {
       setPasswordError("Password does not meet all requirements");
       return;
@@ -94,14 +71,13 @@ function SignUp() {
         formData,
       );
 
-      // Store token + user info
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("user", JSON.stringify(res.data.user));
       window.dispatchEvent(new Event("storageUpdated"));
 
       setApiError("");
       navigate("/");
-    } catch (err: any) {
+    } catch (err) {
       setApiError(err.response?.data?.message || "Error signing up");
     }
   };
@@ -174,40 +150,27 @@ function SignUp() {
             required
           />
 
-          {/* Password validation indicators */}
           {formData.password && (
             <div className="mt-2 space-y-1 text-sm">
-              <p className="font-medium text-gray-700">
-                Password requirements:
-              </p>
+              <p className="font-medium text-gray-700">Password requirements:</p>
               <div className="space-y-1">
-                <div
-                  className={`flex items-center gap-2 ${passwordValidation.hasMinLength ? "text-green-600" : "text-red-500"}`}
-                >
+                <div className={`flex items-center gap-2 ${passwordValidation.hasMinLength ? "text-green-600" : "text-red-500"}`}>
                   <span>{passwordValidation.hasMinLength ? "✓" : "✗"}</span>
                   <span>At least 8 characters</span>
                 </div>
-                <div
-                  className={`flex items-center gap-2 ${passwordValidation.hasUpperCase ? "text-green-600" : "text-red-500"}`}
-                >
+                <div className={`flex items-center gap-2 ${passwordValidation.hasUpperCase ? "text-green-600" : "text-red-500"}`}>
                   <span>{passwordValidation.hasUpperCase ? "✓" : "✗"}</span>
                   <span>One uppercase letter</span>
                 </div>
-                <div
-                  className={`flex items-center gap-2 ${passwordValidation.hasLowerCase ? "text-green-600" : "text-red-500"}`}
-                >
+                <div className={`flex items-center gap-2 ${passwordValidation.hasLowerCase ? "text-green-600" : "text-red-500"}`}>
                   <span>{passwordValidation.hasLowerCase ? "✓" : "✗"}</span>
                   <span>One lowercase letter</span>
                 </div>
-                <div
-                  className={`flex items-center gap-2 ${passwordValidation.hasNumber ? "text-green-600" : "text-red-500"}`}
-                >
+                <div className={`flex items-center gap-2 ${passwordValidation.hasNumber ? "text-green-600" : "text-red-500"}`}>
                   <span>{passwordValidation.hasNumber ? "✓" : "✗"}</span>
                   <span>One number</span>
                 </div>
-                <div
-                  className={`flex items-center gap-2 ${passwordValidation.hasSpecialChar ? "text-green-600" : "text-red-500"}`}
-                >
+                <div className={`flex items-center gap-2 ${passwordValidation.hasSpecialChar ? "text-green-600" : "text-red-500"}`}>
                   <span>{passwordValidation.hasSpecialChar ? "✓" : "✗"}</span>
                   <span>One special character (!@#$%^&*)</span>
                 </div>
@@ -233,9 +196,9 @@ function SignUp() {
               formData.password !== formData.confirmPassword
                 ? "border-red-500 focus:border-red-500 focus:ring-red-500"
                 : formData.confirmPassword &&
-                    formData.password === formData.confirmPassword
-                  ? "border-green-500 focus:border-green-500 focus:ring-green-500"
-                  : ""
+                  formData.password === formData.confirmPassword
+                ? "border-green-500 focus:border-green-500 focus:ring-green-500"
+                : ""
             }`}
             required
           />
@@ -269,3 +232,5 @@ function SignUp() {
 }
 
 export default SignUp;
+
+

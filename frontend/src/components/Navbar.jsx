@@ -14,8 +14,7 @@ function Navbar() {
         setUser(null);
       }
     };
-    loadUser(); // run on mount
-
+    loadUser();
     window.addEventListener("storageUpdated", loadUser);
     return () => window.removeEventListener("storageUpdated", loadUser);
   }, []);
@@ -36,29 +35,19 @@ function Navbar() {
 
         <div className="flex gap-5">
           <Link to="/">
-            <div className="cursor-pointer font-semibold text-gray-600 hover:text-emerald-500">
-              Home
-            </div>
+            <div className="cursor-pointer font-semibold text-gray-600 hover:text-emerald-500">Home</div>
           </Link>
           <Link to={"/browse"}>
-            <div className="cursor-pointer font-semibold text-gray-600 hover:text-emerald-500">
-              Browse Papers
-            </div>
+            <div className="cursor-pointer font-semibold text-gray-600 hover:text-emerald-500">Browse Papers</div>
           </Link>
           <Link to={"/submit"}>
-            <div className="cursor-pointer font-semibold text-gray-600 hover:text-emerald-500">
-              Submit Paper
-            </div>
+            <div className="cursor-pointer font-semibold text-gray-600 hover:text-emerald-500">Submit Paper</div>
           </Link>
           <Link to={"/about"}>
-            <div className="cursor-pointer font-semibold text-gray-600 hover:text-emerald-500">
-              About
-            </div>
+            <div className="cursor-pointer font-semibold text-gray-600 hover:text-emerald-500">About</div>
           </Link>
           <Link to={"/contact"}>
-            <div className="cursor-pointer font-semibold text-gray-600 hover:text-emerald-500">
-              Contact
-            </div>
+            <div className="cursor-pointer font-semibold text-gray-600 hover:text-emerald-500">Contact</div>
           </Link>
         </div>
 
@@ -67,12 +56,7 @@ function Navbar() {
             <div className="flex items-center gap-3">
               <CircleUser className="text-emerald-500" />
               <span className="font-semibold text-gray-700">{user.name}</span>
-              <button
-                onClick={handleLogout}
-                className="rounded-md border border-gray-300 px-3 py-1 text-sm font-medium text-gray-600 hover:bg-red-500 hover:text-white"
-              >
-                Logout
-              </button>
+              <button onClick={handleLogout} className="rounded-md border border-gray-300 px-3 py-1 text-sm font-medium text-gray-600 hover:bg-red-500 hover:text-white">Logout</button>
             </div>
           ) : (
             <>
@@ -101,3 +85,5 @@ function Navbar() {
 }
 
 export default Navbar;
+
+
